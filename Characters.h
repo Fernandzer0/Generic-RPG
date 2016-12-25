@@ -1,5 +1,4 @@
 #pragma once
-#include <string>
 #include <iostream>
 #include <vector>
 #include "Items.h"
@@ -11,16 +10,14 @@ private:
 
 public:
 	
-	std::string name;
+	std::string characterName;
 
-	int health, mana, strength, dexterity, magic, inventorySize, occupation, level, experience;
+	int characterHealth, characterMana, characterStrength, characterDexterity, characterMagic, characterInventorySize, characterOccupation, characterLevel, characterExperience;
 
-	//head chest legs feet hand offhand
+	//head, chest, legs, feet, hand, offhand, none = 0-6
 	Items equipSlot[6];
 
 	std::vector<Items> inventory;
-
-	int locationID;
 	
 	//constructors
 	Characters();
@@ -29,9 +26,10 @@ public:
 
 	//character actions
 	void levelUp();
-	void moveTo(Places place);
+	void moveTo();
 	void add(Items item);
 	void equip(Items item);
 	Items remove(std::vector<Items> &inv, int elementIndex);
+	void transfer(std::vector<Items> &invFrom, int elementIndex);
 };
 

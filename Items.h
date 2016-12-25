@@ -12,8 +12,6 @@ public:
 	int damage, defense, attribute, range, price;
 	equipSlot slot;
 
-	int locationID;
-		
 	Items();
 	Items(std::string name, int damage, int defense, int attribute, int range, int price, equipSlot slot);
 	~Items();
