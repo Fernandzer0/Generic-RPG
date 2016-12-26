@@ -5,21 +5,22 @@ Items::Items()
 	itemName = "";
 	damage = 0;
 	defense = 0;
-	attribute = 0;
-	range = 0;
+	targets = 0;
 	price = 0;
-	slot = none;
+	slot = noSlot;
+	stat = noAtt;
 }
 
-Items::Items(std::string name, int damage, int defense, int attribute, int range, int price, equipSlot slot)
+Items::Items(std::string name, int damage, int defense, int targets, int price, equipSlot slot, attribute itemStat)
 {
 	itemName = name;
 	this->damage = damage;
 	this->defense = defense;
-	this->attribute = attribute;
 	this->price = price;
+	this->targets = targets;
 	this->slot = slot;
-	this->range = range;
+	stat = itemStat;
+
 }
 
 Items::~Items()

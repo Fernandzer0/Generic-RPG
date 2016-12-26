@@ -22,9 +22,9 @@ public:
 	void moveCharacterTo(Places &destination, int characterIndex);
 
 	void addItem(Items item);
-	Items removeItem(std::vector<Items> itemsInPlace, int elementIndex);
+	Items removeItem(std::vector<Items> &itemsInPlace, int elementIndex);
 
 	void addCharacter(Characters character);
-	Characters removeCharacters(std::vector<Characters> character, int elementIndex);
+	Characters removeCharacters(std::vector<Characters> &character, int elementIndex);
 };
 

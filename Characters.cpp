@@ -17,18 +17,19 @@ Characters::Characters()
 		Items default;
 		equipSlot[i] = default;
 	}
+	charAlignment = neutral;
 }
 
-Characters::Characters(std::string name, int health, int mana, int strength, int dexterity, int magic, int inventorySize, int occupation, int level, int experience)
+Characters::Characters(std::string name, alignment alignment, int health, int mana, int strength, int dexterity, int magic, int inventorySize, int level, int experience)
 {
 	characterName = name;
+	charAlignment = alignment;
 	characterHealth = health;
 	characterMana = mana;
 	characterStrength = strength;
 	characterDexterity = dexterity;
 	characterMagic = magic;
 	characterInventorySize = inventorySize;
-	characterOccupation = occupation;
 	characterLevel = level;
 	characterExperience = experience;
 	for (int i = 0; i < 6; i++)
@@ -46,7 +47,7 @@ void Characters::levelUp()
 
 void Characters::add(Items item)
 {
-	if(inventory.size() < characterInventorySize)
+	if (inventory.size() < characterInventorySize)
 		inventory.push_back(item);
 	else
 		std::cout << "You don't have enough inventory space!\n";
@@ -54,7 +55,7 @@ void Characters::add(Items item)
 
 void Characters::equip(Items item)
 {
-	if (item.slot == none)
+	if (item.slot == noSlot)
 		std::cout << "You can't equip that!\n";
 	if (item.slot < 6)
 	{
@@ -66,6 +67,15 @@ void Characters::equip(Items item)
 		else
 			equipSlot[item.slot] = item;
 	}
+}
+
+void Characters::target(Characters &target)
+{
+	if(equipSlot[hand].targets > 0)
+		for (int i = targets.size(); i > equipSlot[hand].targets - 1; i--)
+			targets.erase(targets.begin());
+	if (equipSlot[hand].targets > 0)
+		targets.push_back(target);
 }
 
 Items Characters::remove(std::vector<Items> &inv, int elementIndex)
