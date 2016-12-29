@@ -50,7 +50,6 @@ void Combat::setTargets()
 	}
 	for (int i = 0; i < inCombat.size(); i++)
 	{
-		srand((i*i*104729)%29);
 		if (inCombat[i].charAlignment == hostile)
 		{
 			std::vector<Characters*> targetsFinal = targetsFriendly;
@@ -71,16 +70,18 @@ void Combat::setTargets()
 
 void Combat::removeDeadTargets()
 {
-	for (int i = 0; i < inCombat.size(); i++)
-		for (int j = inCombat[i].targets.size() - 1; j > -1 ; j--)
-		{
+	for (int i = 0; i < inCombat.size(); i++) {
+		std::vector<Characters*> newTargets;
+		for (int j = 0; j < inCombat[i].targets.size(); j++) {
 			Characters temp = *inCombat[i].targets[j];
-			if (temp.currentHealth == 0)
-				inCombat[i].targets.erase(inCombat[i].targets.begin() + j);
+			if (temp.currentHealth > 0)
+				newTargets.push_back(&temp);
 		}
+		inCombat[i].targets = newTargets;
+	}
 	for (int i = inCombat.size() - 1; i > -1 ;  i--)
 	{
-		if (inCombat[i].currentHealth == 0)
+		if (inCombat[i].currentHealth <= 0)
 		{
 			diedInCombat.push_back(inCombat[i]);
 			inCombat.erase(inCombat.begin()  + i);

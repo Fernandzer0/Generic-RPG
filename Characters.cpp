@@ -1,5 +1,5 @@
 #include "Characters.h"
-
+#include <assert.h>
 Characters::Characters()
 {
 	characterName = "";
@@ -81,8 +81,9 @@ void Characters::target(Characters &target)
 	for (int i = 0; i < targets.size(); i++)
 		if (targets[i] == temp)
 			targets.erase(targets.begin() + i);
-	for (int i = targets.size(); i > equipSlot[hand].targets - 1; i--)
+	for (int i = targets.size(); i > equipSlot[hand].targets - 1; i--) {
 		targets.erase(targets.begin());
+	}
 	targets.push_back(temp);
 }
 
