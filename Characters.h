@@ -15,7 +15,7 @@ public:
 	std::string characterName;
 
 	int characterHealth, characterMana, characterStrength, characterDexterity, characterMagic, characterInventorySize, characterOccupation, characterLevel, characterExperience;
-
+	int currentHealth;
 	std::vector<Items> inventory;
 
 	//head, chest, legs, feet, hand, offhand, none = 0-6
@@ -25,7 +25,7 @@ public:
 	alignment charAlignment; 
 
 	//combat
-	std::vector<Characters> targets;
+	std::vector<Characters*> targets;
 	
 	//constructors
 	Characters();

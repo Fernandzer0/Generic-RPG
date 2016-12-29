@@ -12,11 +12,14 @@ Characters::Characters()
 	characterOccupation = 0;
 	characterLevel = 0;
 	characterExperience = 0;
+	currentHealth = characterHealth;
 	for(int i = 0; i < 6; i++)
 	{
 		Items default;
 		equipSlot[i] = default;
 	}
+	Items fists("Fists",1,0,1,0, noSlot, noAtt);
+	equipSlot[hand] = fists;
 	charAlignment = neutral;
 }
 
@@ -32,11 +35,14 @@ Characters::Characters(std::string name, alignment alignment, int health, int ma
 	characterInventorySize = inventorySize;
 	characterLevel = level;
 	characterExperience = experience;
+	currentHealth = characterHealth;
 	for (int i = 0; i < 6; i++)
 	{
 		Items default;
 		equipSlot[i] = default;
 	}
+	Items fists("Fists", 1, 0, 1, 0, noSlot, noAtt);
+	equipSlot[hand] = fists;
 }
 
 Characters::~Characters() {}
@@ -71,11 +77,13 @@ void Characters::equip(Items item)
 
 void Characters::target(Characters &target)
 {
-	if(equipSlot[hand].targets > 0)
-		for (int i = targets.size(); i > equipSlot[hand].targets - 1; i--)
-			targets.erase(targets.begin());
-	if (equipSlot[hand].targets > 0)
-		targets.push_back(target);
+	Characters *temp = &target;
+	for (int i = 0; i < targets.size(); i++)
+		if (targets[i] == temp)
+			targets.erase(targets.begin() + i);
+	for (int i = targets.size(); i > equipSlot[hand].targets - 1; i--)
+		targets.erase(targets.begin());
+	targets.push_back(temp);
 }
 
 Items Characters::remove(std::vector<Items> &inv, int elementIndex)

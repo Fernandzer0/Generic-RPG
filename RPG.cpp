@@ -2,40 +2,56 @@
 
 using namespace std;
 
+//rand seed
+
 int main()
 {
-	Items POS("POS helmet", 2, 3, 0, 2, head, noAtt);
-	Items gewd("gewd helmet", 5, 5, 0, 2, head, noAtt);
-	Items pls("pls work, the legendary blade", 1, 1, 1, 1, hand, noAtt);
-	Items fck("fk u up m8", 1, 1, 2, 1, hand, noAtt);
+	Characters hostile1("Hostile 1", hostile, 10, 0, 1, 5, 0, 5, 0, 0);
+	Characters hostile2("Hostile 2", hostile, 10, 0, 1, 4, 0, 5, 0, 0);
+	Characters hostile3("Hostile 3", hostile, 10, 0, 1, 3, 0, 5, 0, 0);
+	Characters hostile4("Hostile 4", hostile, 10, 0, 1, 2, 0, 5, 0, 0);
 
-	Characters bill("bill", neutral, 10, 0, 2, 1, 0, 5, 0, 0);
-	Characters tom("tom", friendly, 10, 0, 2, 3, 0, 5, 0, 0);
-	Characters jim("jim", hostile, 10, 0, 2, 5, 0, 5, 0, 0);
+	Characters neutral1("Neutral 1", neutral, 10, 0, 1, 0, 0, 5, 0, 0);
+	Characters neutral2("Neutral 2", neutral, 10, 0, 1, 1, 0, 5, 0, 0);
 	
-	bill.equip(fck);
-	tom.equip(pls);
-	jim.equip(POS);
+	Characters friendly1("Friendly 1", friendly, 10, 0, 1, 2, 0, 5, 0, 0); 
+	Characters friendly2("Friendly 2", friendly, 10, 0, 1, 4, 0, 5, 0, 0);
+	Characters friendly3("Friendly 3", friendly, 10, 0, 1, 6, 0, 5, 0, 0);
+
+	Items weapon("Trident", 1, 1, 2, 0, hand, noAtt);
+
+	hostile1.equip(weapon);
+	hostile2.equip(weapon);
+	hostile3.equip(weapon);
+	hostile4.equip(weapon);
+
+//	neutral1.equip(weapon);
+//	neutral2.equip(weapon);
+	
+//	friendly1.equip(weapon);
+//	friendly2.equip(weapon);
+//	friendly3.equip(weapon);
 
 	Places tavern;
 
-	tavern.addCharacter(jim);
-	tavern.addCharacter(tom);
-	tavern.addCharacter(bill);
+	tavern.addCharacter(hostile1);
+	tavern.addCharacter(hostile2);
+	tavern.addCharacter(hostile3);
+	tavern.addCharacter(hostile4);
+
+	tavern.addCharacter(neutral1);
+	tavern.addCharacter(neutral2);
+
+	tavern.addCharacter(friendly1);
+	tavern.addCharacter(friendly2);
+	tavern.addCharacter(friendly3);
 
 	Combat barFight;
 
-	barFight.addToCombat(tavern.charactersInPlace, 0);
-	barFight.addToCombat(tavern.charactersInPlace, 0);
-	barFight.addToCombat(tavern.charactersInPlace, 0);
+	for (int i = 0; tavern.charactersInPlace.size() > 0 ; i++)
+		barFight.addToCombat(tavern.charactersInPlace, 0);
 
-	barFight.inCombat[1].target(barFight.inCombat[2]);
-	barFight.inCombat[2].target(barFight.inCombat[1]);
-
-	barFight.inCombat[2].characterHealth = 0;
-
-
-	barFight.removeTargets();
+	barFight.resolveFight();
 
 	cin.get();
 }
